@@ -199,15 +199,10 @@ const products = [
      }
 
 ]
-
-// FIX 1: Move 'cart' to the global scope so all functions can see it
 let cart = []; 
-
-// FIX 2: Define 'container' outside the function so the event listener can find it
 const container = document.getElementById('product-grid');
 
 function displayProducts(items) {
-    // We removed 'let cart = []' from here because it made the cart "private" to this function
     const htmlContent = items.map(product => `
         <div class="product-card">
             <picture class="img-container">
@@ -228,8 +223,6 @@ function displayProducts(items) {
         container.innerHTML = htmlContent;
     }
 }
-
-// FIX 3: Event listener needs to be attached after 'container' is defined
 container.addEventListener('click', (e) => {
     if (e.target.classList.contains('add-to-cart')) {
         const productName = e.target.getAttribute('data-name');
@@ -250,7 +243,6 @@ function addToCart(product) {
 
 function renderCart() {
     const cartContainer = document.getElementById('cart-items');
-    // Safety check in case the HTML element is missing
     if (!cartContainer) return; 
 
     if (cart.length === 0) {
@@ -276,7 +268,5 @@ function renderCart() {
         <div class="cart-total"><strong>Total: $${total.toFixed(2)}</strong></div>
     `;
 }
-
-// Initialize the app
 displayProducts(products);
 renderCart();

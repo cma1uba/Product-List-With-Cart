@@ -1,20 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Product list</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Product list with cart</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  
+  <div class="header">
+        <h1>Desserts</h1>
+        <img  class="cart-icon"src="assets/images/icon-add-to-cart.svg" alt="Cart icon">
+        </div>
     <section class="container">
-        <h1 class="title">Desserts</h1>
-        <div id="product-grid" class="product-list"></div>   
-       
+        
+        <div id="product-grid">
+            <!-- Content added dynamically with JavaScript-->
+        </div>
+        
+        <aside class="cart">
+            <div class="cart-header">
+            <h2 class="cart-quantity">Your Cart (<span>1</span>)</h2>
+            <img class="cart-close" src="assets/images/icon-remove-item.svg" alt="">
+            </div>
+            
+            <div id="cart-items">
+              <!--
+             <div class="cart-item">
+                <img class="thumbnail" src="assets/images/image-brownie-thumbnail.jpg" alt="thumbnail">
+                <div>
+                    <h4>Salted Caramel Brownie</h4>
+                    <p>
+                        <span id="quantity">2x</span>
+                        <span class="item-price">@$5.50</span>
+                         <span class="item-total">$11.00</span>
+                         </p>
+                </div>
+                <img class="cart-item-remove" src="assets/images/icon-remove-cart-item.svg" alt="remove icon">
+            </div>
+            
+            <div class="total-div">
+                <p>Order Total</p>
+                <h1>$11.00</h1>
+            </div>
+            <p class="delivery"><img src="assets/images/icon-carbon-neutral.svg" alt="icon"> This is a     <span> carbon-neutral </span> delivery</p>
+            <button class="order-btn">Confirm Order</button>-->
+            </div>
+        </aside>
+        
     </section>
-    
-    <script src="script.js"></script>
+  
+  Your added items will appear here
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>

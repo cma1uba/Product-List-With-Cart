@@ -10,12 +10,14 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-  <div class="header">
-        <h1>Desserts</h1>
-        <img  class="cart-icon"src="assets/images/icon-add-to-cart.svg" alt="Cart icon">
-        </div>
     <section class="container">
+        <div class="header">
+        <h1>Desserts</h1>
+          <div id="cart-icon-div">
+        <img  class="cart-icon"src="assets/images/icon-add-to-cart.svg" alt="Cart icon">
+            <span id="item-count">0</span>
+        </div>
+        </div>
         
         <div id="product-grid">
             <!-- Content added dynamically with JavaScript-->
@@ -23,42 +25,20 @@
         
         <aside class="cart">
             <div class="cart-header">
-            <h2 class="cart-quantity">Your Cart (<span>1</span>)</h2>
+            <h2>Your Cart</h2>
             <img class="cart-close" src="assets/images/icon-remove-item.svg" alt="">
             </div>
             
             <div id="cart-items">
-              <!--
-             <div class="cart-item">
-                <img class="thumbnail" src="assets/images/image-brownie-thumbnail.jpg" alt="thumbnail">
-                <div>
-                    <h4>Salted Caramel Brownie</h4>
-                    <p>
-                        <span id="quantity">2x</span>
-                        <span class="item-price">@$5.50</span>
-                         <span class="item-total">$11.00</span>
-                         </p>
-                </div>
-                <img class="cart-item-remove" src="assets/images/icon-remove-cart-item.svg" alt="remove icon">
             </div>
-            
-            <div class="total-div">
-                <p>Order Total</p>
-                <h1>$11.00</h1>
-            </div>
+           
             <p class="delivery"><img src="assets/images/icon-carbon-neutral.svg" alt="icon"> This is a     <span> carbon-neutral </span> delivery</p>
-            <button class="order-btn">Confirm Order</button>-->
-            </div>
+            <button class="order-btn">Confirm Order</button>
+            
         </aside>
         
     </section>
   
-  Your added items will appear here
-
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
   <script src="script.js"></script>
 </body>
 </html>

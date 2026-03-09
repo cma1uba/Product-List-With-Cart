@@ -98,30 +98,29 @@ const products = [
         "category": "Panna Cotta",
         "price": 6.50
      }
-]
-
-const cartIcon = document.querySelector(".cart-icon");
-const cart = document.querySelector(".cart");
+];
+    
+const cartIcon = document.querySelector("#cart-icon-div");
+const cartContainer = document.querySelector(".cart");
 const cartClose = document.querySelector(".cart-close");
 const container = document.getElementById("product-grid");
+const itemCount = document.getElementById("item-count");
 
-let cartBasket = [];
+let cart = [];
 
-// Toggle Cart Sidebar
-cartIcon?.addEventListener("click", () => cart.classList.add("active"));
-cartClose?.addEventListener("click", () => cart.classList.remove("active"));
+if(cartIcon) cartIcon.addEventListener("click", () => cartContainer.classList.add("active"));
+if(cartClose) cartClose.addEventListener("click", () => cartContainer.classList.remove("active"));
 
-// Display Products
-function displayProducts() {
-    const htmlContent = products.map(product => `
-        <div class="product-card">
+function displayProducts(items) {
+    const htmlContent = items.map(product => `
+          <div class="product-card">
             <picture class="image-container">
-                <source media="(min-width: 1024px)" srcset="${product.image.desktop}">
-                <source media="(min-width: 768px)" srcset="${product.image.tablet}">
-                <img src="${product.image.mobile}" alt="${product.name}">
-                <button class="add-to-cart" data-name="${product.name}">
-                    <img src="assets/images/icon-add-to-cart.svg" alt="icon"> Add to Cart
-                </button>
+                 <source media="(min-width: 1024px)" srcset="${product.image.desktop}">
+                 <source media="(min-width: 768px)" srcset="${product.image.tablet}">
+                 <img src="${product.image.mobile}" alt="${product.name}">
+                 <button class="add-to-cart" data-name="${product.name}">
+                    <img src="assets/images/icon-add-to-cart.svg" alt=""> Add to Cart
+                 </button>
             </picture>
             <div class="product-desc">
                 <span class="product-category">${product.category}</span>
@@ -130,58 +129,80 @@ function displayProducts() {
             </div>
         </div>
     `).join("");
-    
+       
     container.innerHTML = htmlContent;
 }
 
-// Add to Cart Logic
-container.addEventListener("click", (e) => {
-    // Check if clicked element OR its parent (the button) was clicked
-    const btn = e.target.closest(".add-to-cart");
-    if (btn) {
-        const productName = btn.getAttribute("data-name");
+container.addEventListener('click', (e) => {
+    const btn = e.target.closest('.add-to-cart');
+    if(btn) {
+        const productName = btn.getAttribute('data-name');
         const selectedProduct = products.find(p => p.name === productName);
         addToCart(selectedProduct);
     }
 });
 
 function addToCart(product) {
-    const existingItem = cartBasket.find(item => item.name === product.name);
+    const existingItem = cart.find(item => item.name === product.name);
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        cartBasket.push({ ...product, quantity: 1 });
+        cart.push({...product, quantity: 1});
     }
     renderCart();
 }
+// 3. Event Delegation for Removing Items
+const cartItemsList = document.getElementById('cart-items');
 
-// Render Cart
+cartItemsList.addEventListener('click', (e) => {
+    // Check if the clicked element (or its parent) is the remove icon
+    const removeBtn = e.target.closest('.cart-item-remove');
+    
+    if (removeBtn) {
+        const productName = removeBtn.getAttribute('data-name');
+        removeFromCart(productName);
+    }
+});
+
+function removeFromCart(productName) {
+    // Reassign the cart array to exclude the item with the matching name
+    cart = cart.filter(item => item.name !== productName);
+    
+    // Refresh the UI
+    renderCart();
+}
+
 function renderCart() {
-    const cartContainer = document.getElementById("cart-items");
-    if (!cartContainer) return;
+    const cartItemsList = document.getElementById('cart-items');
+    if (!cartItemsList) return;
 
-    if (cartBasket.length === 0) {
-        cartContainer.innerHTML = `<p>Your cart is empty</p>`;
+    if (cart.length === 0) {
+        cartItemsList.innerHTML = `
+         <div class="empty-cart">
+         <img src="assets/images/illustration-empty-cart.svg">
+         <p>Your added items will appear here</p>
+         </div>`;
         return;
     }
-
-    const cartHTML = cartBasket.map(item => `
-        <div class="cart-item">
-            <div class="cart-item-info">
+    
+    const cartHTML = cart.map(item => `
+         <div class="cart-item">
+            <img class="thumbnail" src="${item.image.thumbnail}">
+            <div class="item-info">
                 <h4>${item.name}</h4>
                 <p>
-                    <span id="quantity">${item.quantity}x</span>
-                    <span class="item-price">@$${item.price.toFixed(2)}</span>
+                    <span class="quantity">${item.quantity}x</span>
+                    <span class="item-price">@ $${item.price.toFixed(2)}</span>
                     <span class="item-total">$${(item.price * item.quantity).toFixed(2)}</span>
                 </p>
             </div>
-            </div>
-    `).join("");
-
-    // FIXED: The reduce parameters were swapped, and "totak" was a typo
-    const total = cartBasket.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-    cartContainer.innerHTML = `
+            <img class="cart-item-remove" src="assets/images/icon-remove-cart-item.svg" data-name="${item.name}">
+        </div>
+    `).join('');
+     
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  
+    cartItemsList.innerHTML = `
         ${cartHTML}
         <hr>
         <div class="total-div">
@@ -191,6 +212,5 @@ function renderCart() {
     `;
 }
 
-// Initialize
-displayProducts();
+displayProducts(products);
 renderCart();
